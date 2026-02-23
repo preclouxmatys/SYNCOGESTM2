@@ -21,7 +21,38 @@ df <- read_excel(in_path)
 names(df)
 ```
 ```{r}
+df <- df %>%
+  mutate(
+    posture = case_when(
+      grepl("^SEATED", file)   ~ "SEATED",
+      grepl("^SEMID", file)    ~ "SEMI",
+      grepl("^STANDING", file) ~ "STANDING"
+    )
+  )
 
+table(df$posture)
 ```
 
+
+```{r}
+
+df_long <- df %>%
+  select(file, posture,
+         P1_QDM_WRISTS_norm,
+         P2_QDM_WRISTS_norm,
+         P1_QDM_HEAD_norm,
+         P2_QDM_HEAD_norm) %>%
+  pivot_longer(
+    cols = -c(file, posture),
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  mutate(
+    participant = ifelse(grepl("^P1", variable), "P1", "P2"),
+    measure = ifelse(grepl("WRIST", variable), "WRIST", "HEAD"),
+    value = as.numeric(value)
+  )
+
+head(df_long)
+```
 
