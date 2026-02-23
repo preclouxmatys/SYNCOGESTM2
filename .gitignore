@@ -212,4 +212,13 @@ results/raw/
 .ipynb_checkpoints/
 __pycache__/
 
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# If you knit:
+*.utf8.md
+*.knit.md
 
