@@ -207,7 +207,9 @@ marimo/_lsp/
 __marimo__/
 
 data/raw/
-results/
-*.mp4
+results/raw/
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
 
 
