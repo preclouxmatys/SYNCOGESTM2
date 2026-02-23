@@ -1,0 +1,27 @@
+---
+title: "Posture effects (Seated vs Semi-standing vs Standing)"
+output: html_document
+---
+```{r}
+library(dplyr)
+library(tidyr)
+library(readxl)
+library(ggplot2)
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(here)
+
+MODE <- "raw"  # "test" or "raw"
+
+in_path <- here("results", MODE, "vicon_QDM_wrists_head_normByShoulders.xlsx")
+stopifnot(file.exists(in_path))
+
+df <- read_excel(in_path)
+names(df)
+```
+```{r}
+
+```
+
+
