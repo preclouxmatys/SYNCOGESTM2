@@ -11,6 +11,7 @@ library(lme4)
 library(lmerTest)
 library(emmeans)
 library(here)
+library(stringr)
 
 MODE <- "raw"  # "test" or "raw"
 
@@ -24,35 +25,48 @@ names(df)
 df <- df %>%
   mutate(
     posture = case_when(
-      grepl("^SEATED", file)   ~ "SEATED",
-      grepl("^SEMID", file)    ~ "SEMI",
-      grepl("^STANDING", file) ~ "STANDING"
-    )
+      str_detect(video_id, "^SEATED")   ~ "SEATED",
+      str_detect(video_id, "^SEMI")     ~ "SEMI",
+      str_detect(video_id, "^STANDING") ~ "STANDING"
+    ),
+    dyad = str_extract(video_id, "D\\d+")
   )
 
 table(df$posture)
-```
 
+```
 
 ```{r}
 
-df_long <- df %>%
-  select(file, posture,
+df_wrist_long <- df %>%
+  select(dyad, posture,
          P1_QDM_WRISTS_norm,
-         P2_QDM_WRISTS_norm,
-         P1_QDM_HEAD_norm,
-         P2_QDM_HEAD_norm) %>%
+         P2_QDM_WRISTS_norm) %>%
   pivot_longer(
-    cols = -c(file, posture),
-    names_to = "variable",
+    cols = c(P1_QDM_WRISTS_norm, P2_QDM_WRISTS_norm),
+    names_to = "participant",
     values_to = "value"
   ) %>%
   mutate(
-    participant = ifelse(grepl("^P1", variable), "P1", "P2"),
-    measure = ifelse(grepl("WRIST", variable), "WRIST", "HEAD"),
+    subject = paste0(dyad, "_", participant),
     value = as.numeric(value)
   )
 
-head(df_long)
+```
+
+```{r}
+library(afex)
+anova_wrist <- aov_ez(
+  id = "subject",
+  dv = "value",
+  within = "posture",
+  data = df_wrist_long,
+  anova_table = list(correction = "GG", es = "pes")
+)
+
+anova_wrist
+```
+```{r}
+emmeans(anova_wrist, pairwise ~ posture, adjust = "bonferroni")
 ```
 
