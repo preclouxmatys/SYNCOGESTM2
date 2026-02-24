@@ -51,6 +51,19 @@ df_wrist_long <- df %>%
     subject = paste0(dyad, "_", participant),
     value = as.numeric(value)
   )
+df_head_long <- df %>%
+  select(dyad, posture,
+         P1_QDM_HEAD_norm,
+         P2_QDM_HEAD_norm) %>%
+  pivot_longer(
+    cols = c(P1_QDM_HEAD_norm, P2_QDM_HEAD_norm),
+    names_to = "participant",
+    values_to = "value"
+  ) %>%
+  mutate(
+    subject = paste0(dyad, "_", participant),
+    value = as.numeric(value)
+  )
 
 ```
 
@@ -65,8 +78,19 @@ anova_wrist <- aov_ez(
 )
 
 anova_wrist
+
+anova_head <- aov_ez(
+  id = "subject",
+  dv = "value",
+  within = "posture",
+  data = df_head_long,
+  anova_table = list(correction = "GG", es = "pes")
+)
+
+anova_head
 ```
 ```{r}
 emmeans(anova_wrist, pairwise ~ posture, adjust = "bonferroni")
+emmeans(anova_head, pairwise ~ posture, adjust = "bonferroni")
 ```
 
