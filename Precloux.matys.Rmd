@@ -135,3 +135,62 @@ The final file used for statistics is:
 | SEATED – STANDING  | -4.4     | -2.12  | .135  |
 | SEMI – STANDING    | -8.6     | -3.11  | .015  |
 
+# 4.2 R Code to have  boxplot
+
+```{r}
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(here)
+
+MODE <- "raw"
+in_path <- here("results", MODE, "vicon_QDM_wrists_head_normByShoulders.xlsx")
+df <- read_excel(in_path)
+
+df <- df %>%
+  mutate(
+    posture = case_when(
+      str_detect(video_id, "^SEATED") ~ "SEATED",
+      str_detect(video_id, "^SEMI") ~ "SEMI",
+      str_detect(video_id, "^STANDING") ~ "STANDING"
+    ),
+    dyad = str_extract(video_id, "D\\d+"),
+    posture = factor(posture, levels = c("SEATED","SEMI","STANDING"))
+  )
+```
+```{r}
+ymax_wrist <- max(df_wrist_long$value, na.rm = TRUE)
+```
+
+```{r}
+df_wrist_long <- df %>%
+  select(dyad, posture, P1_QDM_WRISTS_norm, P2_QDM_WRISTS_norm) %>%
+  pivot_longer(cols = c(P1_QDM_WRISTS_norm, P2_QDM_WRISTS_norm),
+               names_to = "participant", values_to = "value") %>%
+  mutate(value = as.numeric(value))
+
+ggplot(df_wrist_long, aes(x = posture, y = value)) +
+  geom_boxplot(outlier.alpha = 0.3) +
+  theme_minimal(base_size = 13) +
+  labs(title = "Normalized movement (WRIST)",
+       x = "Posture",
+       y = "QdM / shoulder width (a.u.)") 
+```
+
+```{r}
+df_head_long <- df %>%
+  select(dyad, posture, P1_QDM_HEAD_norm, P2_QDM_HEAD_norm) %>%
+  pivot_longer(cols = c(P1_QDM_HEAD_norm, P2_QDM_HEAD_norm),
+               names_to = "participant", values_to = "value") %>%
+  mutate(value = as.numeric(value))
+
+ggplot(df_head_long, aes(x = posture, y = value)) +
+  geom_boxplot(outlier.alpha = 0.3) +
+  theme_minimal(base_size = 13) +
+  labs(title = "Normalized movement (HEAD)",
+       x = "Posture",
+       y = "QdM / shoulder width (a.u.)")
+```
+
