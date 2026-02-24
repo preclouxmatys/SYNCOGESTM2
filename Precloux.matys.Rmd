@@ -1,0 +1,11 @@
+title: "Python–R–Git Project (IEAP) — Posture effects on movement dynamics"
+author: "Matys Précloux"
+date: "`r format(Sys.time(), '%Y-%m-%d')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    df_print: paged
+    self_contained: true
+output_file: "precloux.matys.html"
