@@ -35,3 +35,53 @@ Movement is summarized using **Quantity of Motion (QdM)** computed for:
 - **Head** (left + right temples)
 
 For each dyad file, both participants are available (P1 and P2).
+
+# 3 Python processing pipeline
+
+This section summarizes the Python code organization and the processing steps.
+
+## 3.1 Project organization (reproducibility)
+The repository follows a reproducible structure:
+- `src/` contains reusable functions (CSV parsing, marker extraction, QdM computation).
+- `notebooks/` contains step-by-step processing notebooks.
+- `results/<MODE>/` stores outputs (test or raw mode).
+
+Two execution modes are used:
+- `MODE="test"`: small dataset tracked on GitHub to ensure reproducibility
+- `MODE="raw"`: full dataset (not committed)
+
+## 3.2 Vicon CSV parsing
+Vicon CSV exports include multi-line headers (marker names, axes, units).  
+A dedicated parser reconstructs flattened columns (e.g., `marker_X`, `marker_Y`, `marker_Z`) so that the rest of the pipeline is independent of header format.
+
+## 3.3 Quantity of Motion (QdM)
+For one 3D marker, QdM is computed as the cumulative frame-to-frame displacement:
+
+\[
+QdM = \sum_{t=2}^{T} \sqrt{(\Delta x_t)^2 + (\Delta y_t)^2 + (\Delta z_t)^2}
+\]
+
+Wrists index:  
+\[
+QdM_{wrists} = QdM_{right\_wrist} + QdM_{left\_wrist}
+\]
+
+Head index (temples):  
+\[
+QdM_{head} = QdM_{right\_temple} + QdM_{left\_temple}
+\]
+
+## 3.4 Shoulder-width normalization
+To obtain a unitless measure robust to inter-individual scale differences, QdM is normalized by median shoulder width:
+
+\[
+QdM_{norm} = \frac{QdM_{mm}}{shoulder\ width_{median\ mm}}
+\]
+
+This produces:
+- `P1_QDM_WRISTS_norm`, `P2_QDM_WRISTS_norm`
+- `P1_QDM_HEAD_norm`, `P2_QDM_HEAD_norm`
+
+The final file used for statistics is:  
+`results/<MODE>/vicon_QDM_wrists_head_normByShoulders.xlsx`
+
