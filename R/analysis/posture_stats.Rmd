@@ -2,6 +2,10 @@
 title: "Posture effects (Seated vs Semi-standing vs Standing)"
 output: html_document
 ---
+
+# 1. Libraries and Data Import
+
+This section loads required packages and imports the normalized Vicon dataset.
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -12,23 +16,33 @@ library(lmerTest)
 library(emmeans)
 library(here)
 library(stringr)
+# Choose dataset version ("test" or "raw")
+MODE <- "raw"  
 
-MODE <- "raw"  # "test" or "raw"
-
+# Define imput path
 in_path <- here("results", MODE, "vicon_QDM_wrists_head_normByShoulders.xlsx")
-stopifnot(file.exists(in_path))
 
+# Ensure file exists
+stopifnot(file.exists(in_path))
+# Load data
 df <- read_excel(in_path)
+# Inspect variable names
 names(df)
 ```
+# 2. Extract Posture and Dyad Information
+
+We extract posture condition and dyad ID from the video identifier.
+
 ```{r}
 df <- df %>%
   mutate(
+    # Extract posture condition from video_id
     posture = case_when(
       str_detect(video_id, "^SEATED")   ~ "SEATED",
       str_detect(video_id, "^SEMI")     ~ "SEMI",
       str_detect(video_id, "^STANDING") ~ "STANDING"
     ),
+     # Extract dyad ID (e.g., D01, D02...)
     dyad = str_extract(video_id, "D\\d+")
   )
 
@@ -36,8 +50,13 @@ table(df$posture)
 
 ```
 
-```{r}
+# 3. Reshape Data to Long Format
 
+We reshape wrist and head variables separately.
+Each participant (P1 and P2) is treated as an independent subject.
+
+```{r}
+# WRIST movement (normalized)
 df_wrist_long <- df %>%
   select(dyad, posture,
          P1_QDM_WRISTS_norm,
@@ -51,6 +70,7 @@ df_wrist_long <- df %>%
     subject = paste0(dyad, "_", participant),
     value = as.numeric(value)
   )
+# HEAD movement (normalized)
 df_head_long <- df %>%
   select(dyad, posture,
          P1_QDM_HEAD_norm,
@@ -67,8 +87,14 @@ df_head_long <- df %>%
 
 ```
 
+# 4. Repeated Measures ANOVA (Greenhouse–Geisser correction)
+
+We test the effect of posture on normalized movement.
+Sphericity violations are corrected using Greenhouse–Geisser adjustment.
+
 ```{r}
 library(afex)
+# WRIST ANOVA
 anova_wrist <- aov_ez(
   id = "subject",
   dv = "value",
@@ -78,7 +104,7 @@ anova_wrist <- aov_ez(
 )
 
 anova_wrist
-
+# HEAD ANOVA
 anova_head <- aov_ez(
   id = "subject",
   dv = "value",
@@ -89,6 +115,10 @@ anova_head <- aov_ez(
 
 anova_head
 ```
+# 5. Post-hoc Comparisons (Bonferroni correction)
+
+Pairwise comparisons between posture conditions.
+
 ```{r}
 emmeans(anova_wrist, pairwise ~ posture, adjust = "bonferroni")
 emmeans(anova_head, pairwise ~ posture, adjust = "bonferroni")
