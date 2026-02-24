@@ -9,3 +9,29 @@ output:
     df_print: paged
     self_contained: true
 output_file: "precloux.matys.html"
+
+**GitHub repository (public):**  
+[https://github.com/preclouxmatys/SYNCOGESTM2](https://github.com/preclouxmatys/SYNCOGESTM2)
+
+# 1 Research question
+
+Human movement analysis relies on both validated tools and reproducible pipelines.  
+The goal of this project is to test whether **postural configuration** influences global movement dynamics during dyadic interaction.
+
+**Research question:**  
+Does posture (**SEATED**, **SEMI-STANDING**, **STANDING**) affect the indice of movement by participants?
+
+**Hypothesis:**  
+Standing posture induces higher indice movement quantity.
+
+# 2 Data
+
+## 2.1 Source
+Data are Vicon "Trajectories" CSV exports containing 3D marker coordinates (X/Y/Z, in mm) sampled over time.
+
+## 2.2 Variables of interest
+Movement is summarized using **Quantity of Motion (QdM)** computed for:
+- **Wrists** (left + right)
+- **Head** (left + right temples)
+
+For each dyad file, both participants are available (P1 and P2).
