@@ -5,19 +5,39 @@ output: html_document
 
 # 1. Libraries and Data Import
 
-This section loads required packages and imports the normalized Vicon dataset.
+This section installs missing packages if needed, then loads the normalized Vicon dataset.
+
+
+```{r setup, include=FALSE}
+required_packages <- c(
+  "dplyr",
+  "tidyr",
+  "readxl",
+  "ggplot2",
+  "lme4",
+  "lmerTest",
+  "emmeans",
+  "here",
+  "stringr",
+  "afex"
+)
+
+installed <- rownames(installed.packages())
+to_install <- setdiff(required_packages, installed)
+
+if (length(to_install) > 0) {
+  message("Installing missing packages: ", paste(to_install, collapse = ", "))
+  install.packages(to_install, repos = "https://cloud.r-project.org")
+}
+
+invisible(lapply(required_packages, library, character.only = TRUE))
+
+```
+
 ```{r}
-library(dplyr)
-library(tidyr)
-library(readxl)
-library(ggplot2)
-library(lme4)
-library(lmerTest)
-library(emmeans)
-library(here)
-library(stringr)
+
 # Choose dataset version ("test" or "raw")
-MODE <- "raw"  
+MODE <- "raw"
 
 # Define imput path
 in_path <- here("results", MODE, "vicon_QDM_wrists_head_normByShoulders.xlsx")
