@@ -13,7 +13,7 @@ Movement is quantified using:
 
 - **Vicon optical motion capture system**
 - 3D marker trajectories
-- Quantity of Motion (QdM)
+- Quantity of movement index is computed for wrists and head, then normalized by shoulder width.
 - Shoulder-width normalization
 - Repeated-measures ANOVA (Greenhouse–Geisser correction)
 
@@ -52,7 +52,7 @@ SYNCOGESTM2/
 
 The Python workflow computes:
 
-1. Quantity of Motion (QdM) for wrists and head
+1. Quantity of movement index for wrists and head
 2. Shoulder width (median distance between left and right shoulders)
 3. Normalized QdM (QdM / shoulder width)
 
@@ -75,7 +75,7 @@ The R workflow performs:
 Entry point
 
 Open in RStudio:main.Rmd and run the full notebook to perform the analysis on the test results.
-Set: R_MODE = "test"   # or "raw"
+Set: MODE = "test"   # or "raw"
 results/<MODE>/vicon_QDM_wrists_head_normByShoulders.xlsx is the input for the R analysis.
 
 ## 5. Scientific Question
