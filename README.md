@@ -1,5 +1,5 @@
 # SYNCOGESTM2
-Repository for the defense Python/R in M2
+Python–R–Git project for the Master 2 defense
 
 **Python–R–Git Project ** 
 Matys Précloux — Master IEAP — 2026  
@@ -13,11 +13,11 @@ Movement is quantified using:
 
 - **Vicon optical motion capture system**
 - 3D marker trajectories
-- Quantity of movement index is computed for wrists and head, then normalized by shoulder width.
+- Quantity of Movement Index is computed for wrists and head.
 - Shoulder-width normalization
 - Repeated-measures ANOVA (Greenhouse–Geisser correction)
 
-The objective is to demonstrate both:
+The aim is to demonstrate both:
 
 - Technical skills (Python, R, Git, reproducible pipelines)
 - Scientific skills (signal processing, normalization, statistics, interpretation)
@@ -26,23 +26,18 @@ The objective is to demonstrate both:
 
 ## 2. Project Structure
 SYNCOGESTM2/
-│
 ├── data/
-│   ├── test/           # Small dataset for reproducibility
-│   └── raw/            # Full dataset
-│
+│   ├── test/              # small dataset for reproducibility
+│   └── raw/               # full dataset (local only)
+├── notebooks/             # Python processing notebooks
 ├── results/
-│   ├── test/           # Generated test results
-│   └── raw/            # Generated full results
-│
-├── notebooks/          # Python processing notebooks
-│
-├── src/                # Reusable Python functions
-│
-├── main.ipynb          # Python entry point
-├── main.Rmd            # R entry point
-├── R.Rproj             # RStudio project file
-│
+│   ├── test/              # generated test outputs
+│   └── raw/               # generated full outputs
+├── src/                   # reusable Python functions
+├── main.ipynb             # Python entry point
+├── main.Rmd               # R entry point
+├── main.Rproj             # RStudio project file
+├── Precloux.matys.html    # final HTML report
 ├── README.md
 └── LICENSE
 
@@ -52,9 +47,9 @@ SYNCOGESTM2/
 
 The Python workflow computes:
 
-1. Quantity of movement index for wrists and head
+1. Movement Quantity Index (MQI) for wrists and head
 2. Shoulder width (median distance between left and right shoulders)
-3. Normalized QdM (QdM / shoulder width)
+3. Normalized MQI (MQI / shoulder width)
 
 ### Entry point
 
@@ -76,7 +71,7 @@ Entry point
 
 Open in RStudio:main.Rmd and run the full notebook to perform the analysis on the test results.
 Set: MODE = "test"   # or "raw"
-results/<MODE>/vicon_QDM_wrists_head_normByShoulders.xlsx is the input for the R analysis.
+results/<MODE>/vicon_MQI_wrists_head_normByShoulders.xlsx is the input for the R analysis.
 
 ## 5. Scientific Question
 
@@ -84,7 +79,7 @@ Does postural configuration influence global body movement dynamics?
 
 # Hypothesis:
 
-Standing posture induces higher indice of movement quantity.
+Standing posture is expected to increase the movement quantity index. 
 
 ## 6. Reproducibility
 	•	All file paths are OS-independent (Path / here)

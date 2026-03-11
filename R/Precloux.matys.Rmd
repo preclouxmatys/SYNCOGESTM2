@@ -1,6 +1,7 @@
-title: "Python–R–Git Project (IEAP) — Posture effects on movement dynamics"
+---
+title: "Python–R–Git Project (IEAP) — Effects of postural configuration on movement dynamics"
 author: "Matys Précloux"
-date: "`r format(Sys.time(), '%Y-%m-%d')`"
+date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 output:
   html_document:
     toc: true
@@ -8,7 +9,7 @@ output:
     number_sections: true
     df_print: paged
     self_contained: true
-output_file: "precloux.matys.html"
+---
 
 **GitHub repository (public):**  
 [https://github.com/preclouxmatys/SYNCOGESTM2](https://github.com/preclouxmatys/SYNCOGESTM2)
@@ -19,10 +20,10 @@ Human movement analysis relies on both validated tools and reproducible pipeline
 The goal of this project is to test whether **postural configuration** influences global movement dynamics during dyadic interaction.
 
 **Research question:**  
-Does posture (**SEATED**, **SEMI-STANDING**, **STANDING**) affect the indice of movement by participants?
+Does posture (**SEATED**, **SEMI-STANDING**, **STANDING**) affect the movement quantity index of the participants?
 
 **Hypothesis:**  
-Standing posture induces higher indice movement quantity.
+Standing posture is expected to increase the Movement Quantity Index. 
 
 # 2 Data
 
@@ -30,7 +31,7 @@ Standing posture induces higher indice movement quantity.
 Data are Vicon "Trajectories" CSV exports containing 3D marker coordinates (X/Y/Z, in mm) sampled over time.
 
 ## 2.2 Variables of interest
-Movement is summarized using **Quantity of Motion (QdM)** computed for:
+Movement is summarized using a **Movement Quantity Index (MQI)** computed for:
 - **Wrists** (left + right)
 - **Head** (left + right temples)
 
@@ -42,7 +43,7 @@ This section summarizes the Python code organization and the processing steps.
 
 ## 3.1 Project organization (reproducibility)
 The repository follows a reproducible structure:
-- `src/` contains reusable functions (CSV parsing, marker extraction, QdM computation).
+- `src/` contains reusable functions (CSV parsing, marker extraction, MQI computation).
 - `notebooks/` contains step-by-step processing notebooks.
 - `results/<MODE>/` stores outputs (test or raw mode).
 
@@ -54,36 +55,36 @@ Two execution modes are used:
 Vicon CSV exports include multi-line headers (marker names, axes, units).  
 A dedicated parser reconstructs flattened columns (e.g., `marker_X`, `marker_Y`, `marker_Z`) so that the rest of the pipeline is independent of header format.
 
-## 3.3 Quantity of Motion (QdM)
-For one 3D marker, QdM is computed as the cumulative frame-to-frame displacement:
+## 3.3 Movement Quantity Index (MQI)
+For one 3D marker, MQI is computed as the cumulative frame-to-frame displacement:
 
 \[
-QdM = \sum_{t=2}^{T} \sqrt{(\Delta x_t)^2 + (\Delta y_t)^2 + (\Delta z_t)^2}
+MQI = \sum_{t=2}^{T} \sqrt{(\Delta x_t)^2 + (\Delta y_t)^2 + (\Delta z_t)^2}
 \]
 
 Wrists index:  
 \[
-QdM_{wrists} = QdM_{right\_wrist} + QdM_{left\_wrist}
+MQI_{wrists} = MQI_{right\_wrist} + MQI_{left\_wrist}
 \]
 
 Head index (temples):  
 \[
-QdM_{head} = QdM_{right\_temple} + QdM_{left\_temple}
+MQI_{head} = MQI_{right\_temple} + MQI_{left\_temple}
 \]
 
 ## 3.4 Shoulder-width normalization
-To obtain a unitless measure robust to inter-individual scale differences, QdM is normalized by median shoulder width:
+To obtain a unitless measure robust to inter-individual scale differences, MQI is normalized by median shoulder width:
 
 \[
-QdM_{norm} = \frac{QdM_{mm}}{shoulder\ width_{median\ mm}}
+MQI_{norm} = \frac{MQI_{mm}}{shoulder\ width_{median\ mm}}
 \]
 
 This produces:
-- `P1_QDM_WRISTS_norm`, `P2_QDM_WRISTS_norm`
-- `P1_QDM_HEAD_norm`, `P2_QDM_HEAD_norm`
+- `P1_MQI_WRISTS_norm`, `P2_MQI_WRISTS_norm`
+- `P1_MQI_HEAD_norm`, `P2_MQI_HEAD_norm`
 
 The final file used for statistics is:  
-`results/<MODE>/vicon_QDM_wrists_head_normByShoulders.xlsx`
+`results/<MODE>/vicon_MQI_wrists_head_normByShoulders.xlsx`
 
 # 4 R statistical analysis (to show results, and plot)
 
@@ -135,8 +136,9 @@ The final file used for statistics is:
 | SEATED – STANDING  | -4.4     | -2.12  | .135  |
 | SEMI – STANDING    | -8.6     | -3.11  | .015  |
 
-# 4.2 R Code to have  boxplot
+# 4.2 boxplot
 
+The following boxplots illustrate the distribution of the normalized movement quantity index across postural conditions for wrists and head.
 ```{r}
 library(readxl)
 library(dplyr)
@@ -146,7 +148,7 @@ library(ggplot2)
 library(here)
 
 MODE <- "raw"
-in_path <- here("results", MODE, "vicon_QDM_wrists_head_normByShoulders.xlsx")
+in_path <- here("results", MODE, "vicon_MQI_wrists_head_normByShoulders.xlsx")
 df <- read_excel(in_path)
 
 df <- df %>%
@@ -162,7 +164,7 @@ df <- df %>%
 ```
 
 
-```{r}
+```{r wrist-boxplot, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
 df_long <- df %>%
   select(dyad, posture, P1_QDM_WRISTS_norm, P2_QDM_WRISTS_norm) %>%
   pivot_longer(cols = c(P1_QDM_WRISTS_norm, P2_QDM_WRISTS_norm),
@@ -177,7 +179,7 @@ ggplot(df_long, aes(x = posture, y = value)) +
        y = "QdM / shoulder width (a.u.)") 
 ```
 
-```{r}
+```{r head-boxplot, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
 df_long <- df %>%
   select(dyad, posture, P1_QDM_HEAD_norm, P2_QDM_HEAD_norm) %>%
   pivot_longer(cols = c(P1_QDM_HEAD_norm, P2_QDM_HEAD_norm),

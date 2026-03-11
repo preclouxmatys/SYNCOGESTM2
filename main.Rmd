@@ -37,10 +37,10 @@ invisible(lapply(required_packages, library, character.only = TRUE))
 ```{r}
 
 # Choose dataset version ("test" or "raw")
-MODE <- "raw"
+MODE <- "test"  # Change to "raw" for full dataset
 
 # Define imput path
-in_path <- here("results", MODE, "vicon_QDM_wrists_head_normByShoulders.xlsx")
+in_path <- here("results", MODE, "vicon_MQI_wrists_head_normByShoulders.xlsx")
 
 # Ensure file exists
 stopifnot(file.exists(in_path))
@@ -79,10 +79,10 @@ Each participant (P1 and P2) is treated as an independent subject.
 # WRIST movement (normalized)
 df_wrist_long <- df %>%
   select(dyad, posture,
-         P1_QDM_WRISTS_norm,
-         P2_QDM_WRISTS_norm) %>%
+         P1_MQI_WRISTS_norm,
+         P2_MQI_WRISTS_norm) %>%
   pivot_longer(
-    cols = c(P1_QDM_WRISTS_norm, P2_QDM_WRISTS_norm),
+    cols = c(P1_MQI_WRISTS_norm, P2_MQI_WRISTS_norm),
     names_to = "participant",
     values_to = "value"
   ) %>%
@@ -93,10 +93,10 @@ df_wrist_long <- df %>%
 # HEAD movement (normalized)
 df_head_long <- df %>%
   select(dyad, posture,
-         P1_QDM_HEAD_norm,
-         P2_QDM_HEAD_norm) %>%
+         P1_MQI_HEAD_norm,
+         P2_MQI_HEAD_norm) %>%
   pivot_longer(
-    cols = c(P1_QDM_HEAD_norm, P2_QDM_HEAD_norm),
+    cols = c(P1_MQI_HEAD_norm, P2_MQI_HEAD_norm),
     names_to = "participant",
     values_to = "value"
   ) %>%
