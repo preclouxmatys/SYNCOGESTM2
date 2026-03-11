@@ -4,7 +4,7 @@ Vicon utilities (CSV parsing + marker extraction + kinematic metrics)
 This module centralizes reusable functions used across notebooks:
 - read_vicon_csv: parse Vicon "Trajectories" CSV exports
 - find_xyz_cols: robustly find X/Y/Z columns for a marker token
-- motion_quantity_point: compute Quantity of Motion (QdM) for a 3D marker
+- motion_quantity_point: compute Movement Quantity Index (MQI) for a 3D marker
 """
 
 from __future__ import annotations
@@ -116,7 +116,7 @@ def find_xyz_cols(columns: Iterable[str], token: str) -> Tuple[Optional[str], Op
 
 def motion_quantity_point(df: pd.DataFrame, X: str, Y: str, Z: str) -> Tuple[float, int]:
     """
-    Compute Quantity of Motion (QdM) for a 3D point.
+    Compute Movement Quantity Index (MQI) for a 3D point.
 
     Definition
     ----------
