@@ -206,7 +206,21 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# Ignore raw datasets
+data/raw/
 
+# Ignore raw results
+results/raw/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# MacOS
+.DS_Store
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
 
 # R / RStudio
 .Rproj.user/
