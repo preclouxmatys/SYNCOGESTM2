@@ -209,9 +209,6 @@ __marimo__/
 # Ignore raw datasets
 data/raw/
 
-# Ignore raw results
-results/raw/
-
 # Python cache
 __pycache__/
 *.pyc
