@@ -61,10 +61,12 @@ MQI_{norm} = \frac{MQI_{mm}}{shoulder\ width_{median}}
 ### Entry point
 
 Run:main.ipynb to execute the full pipeline on the test dataset.
+
 Set: python
+
 MODE = "test"   # or "raw"
-Outputs are written to:
-results/<MODE>/
+
+Outputs are written to:results/<MODE>/
 
 ## 4. R Statistical Analysis
 
