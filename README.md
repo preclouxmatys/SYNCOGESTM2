@@ -2,7 +2,7 @@
 ## Postural Configuration Shapes Movement Dynamics During Dyadic Interaction
 
 **Faculty of Sports and Health Sciences (UFR STAPS)**  
-**Master of Science (MSc)**  
+**Master of Science**  
 Engineering and Ergonomics of Physical Activity  
 
 ### Author
@@ -10,10 +10,7 @@ Matys Précloux
 
 ### Supervisors
 Ludovic Marin — Professor, University of Montpellier  
-Ghiles Mostafaoui — Research Engineer, University of Montpellier  
-Patrice Guyot — Research Engineer, University of Montpellier  
-Simon Pla — PhD Candidate, University of Montpellier  
-
+ 
 ### Course
 Python–R–Git for Data Analysis
 
@@ -36,11 +33,6 @@ Movement is quantified using:
 - Quantity of Movement Index is computed for wrists and head.
 - Shoulder-width normalization
 - Repeated-measures ANOVA (Greenhouse–Geisser correction)
-
-The aim is to demonstrate both:
-
-- Technical skills (Python, R, Git, reproducible pipelines)
-- Scientific skills (signal processing, normalization, statistics, interpretation)
 
 ---
 
