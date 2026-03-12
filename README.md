@@ -93,13 +93,13 @@ Set the execution mode:
 ```r
 MODE <- "test"   # or "raw" # same idea as in Python
 ```
-The input file for the analysis is: results/<MODE>/`vicon_MQI_wrists_head_normByShoulders.xlsx`
+The input file for the analysis is: results//<MODE>/`vicon_MQI_wrists_head_normByShoulders.xlsx`
 
 ## 5. Scientific Question
 
 Does postural configuration influence global body movement dynamics?
 
-# Hypothesis:
+### Hypothesis:
 
 Standing posture is expected to increase the movement quantity index. 
 
