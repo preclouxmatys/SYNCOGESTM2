@@ -54,9 +54,9 @@ Run: `main.ipynb` to execute the full pipeline on the test dataset.
 
 MODE = "test"   # or "raw" change it in `main.ipynb` and in the three notebook of the workflow : 
 
-│   ├── MQI_VICON_defense.ipynb
-│   ├── Shouldersize_VICON_defense.ipynb
-│   └── Norm_final_Vicon_defense.ipynb
+├── MQI_VICON_defense.ipynb
+├── Shouldersize_VICON_defense.ipynb
+└── Norm_final_Vicon_defense.ipynb
 
 Outputs are written to: results/<MODE>/
 
