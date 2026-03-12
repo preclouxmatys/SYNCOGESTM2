@@ -56,12 +56,12 @@ Run `main.ipynb` to execute the full pipeline on the test dataset.
 MODE = "test"   # or "raw"
 ```
 This mode must be set consistently in `main.ipynb` and in the three processing notebooks:
-
+<pre>
 Notebook/
 ├── MQI_VICON_defense.ipynb
 ├── Shouldersize_VICON_defense.ipynb
 └── Norm_final_Vicon_defense.ipynb
-
+</pre>
 The workflow generates outputs in:
 
 results/<MODE>
