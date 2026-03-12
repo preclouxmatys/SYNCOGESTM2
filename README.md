@@ -29,16 +29,16 @@ SYNCOGESTM2/
 ├── data/
 │   ├── test/              # small dataset for reproducibility
 │   └── raw/               # full dataset (local only)
-├── notebooks/            # Python processing notebooks
-│   ├── MQI_VICON_defense.ipynb
-│   ├── Shouldersize_VICON_defense.ipynb
-│   └── Norm_final_Vicon_defense.ipynb
+├── notebooks/             # Python processing notebooks
+│   ├── `MQI_VICON_defense.ipynb`
+│   ├── `Shouldersize_VICON_defense.ipynb`
+│   └── `Norm_final_Vicon_defense.ipynb`
 ├── results/
 │   ├── test/              # generated test outputs
 │   └── raw/               # generated full outputs
 ├── src/                   # reusable Python functions
-├── main.ipynb             # Python entry point
-├── main.Rmd               # R entry point
+├── `main.ipynb`           # Python entry point
+├── `main.Rmd`             # R entry point
 ├── main.Rproj             # RStudio project file
 ├── Precloux.matys.html    # final HTML report
 ├── README.md
@@ -48,21 +48,24 @@ SYNCOGESTM2/
 
 ## 3. Python Pipeline
 
-The Python workflow computes:
-
-1. **Movement Quantity Index (MQI)** for wrists and head
-2. **Shoulder width** (median distance between left and right shoulders)
-3. **Normalized MQI**
-
 ### Entry point
 
-Run:main.ipynb to execute the full pipeline on the test dataset.
+Run: `main.ipynb` to execute the full pipeline on the test dataset.
 
-Set: python
+MODE = "test"   # or "raw" change it in `main.ipynb` and in the three notebook of the workflow : 
 
-MODE = "test"   # or "raw"
+│   ├── MQI_VICON_defense.ipynb
+│   ├── Shouldersize_VICON_defense.ipynb
+│   └── Norm_final_Vicon_defense.ipynb
 
 Outputs are written to: results/<MODE>/
+
+The Python workflow computes:
+
+1. **Movement Quantity Index (MQI)** for wrists and head : `MQI_VICON_defense.ipynb`
+2. **Shoulder width** (median distance between left and right shoulders) : `Shouldersize_VICON_defense.ipynb`
+3. **Normalized MQI** : `Norm_final_Vicon_defense.ipynb`
+
 
 ## 4. R Statistical Analysis
 
@@ -74,8 +77,9 @@ The R workflow performs:
 
 Entry point
 
-Open in RStudio:main.Rmd and run the full notebook to perform the analysis on the test results.
+Open in RStudio: `main.Rmd` and run the full notebook to perform the analysis on the test results.
 Set: MODE = "test"   # or "raw"
+
 results/<MODE>/vicon_MQI_wrists_head_normByShoulders.xlsx is the input for the R analysis.
 
 ## 5. Scientific Question
