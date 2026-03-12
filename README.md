@@ -139,11 +139,5 @@ Standing posture is expected to increase the movement quantity index.
 │   ├──here
 │   ├──stringr
 <pre/>
+
 ⸻
-
-8. Author
-
-Matys Précloux
-Master IEAP
-University of Montpellier
-2026

@@ -1,5 +1,5 @@
 ---
-title: "Python–R–Git Project (IEAP) — Effects of postural configuration on movement dynamics"
+title: "Python–R–Git Project (IEAP) — Effects of Postural Configuration on Movement Dynamics"
 author: "Matys Précloux"
 date: "`r format(Sys.Date(), '%Y-%m-%d')`"
 output:
@@ -10,52 +10,83 @@ output:
     df_print: paged
     self_contained: true
 ---
+**Faculty of Sports and Health Sciences (UFR STAPS)**  
+Master of Science (MSc)  
+Engineering and Ergonomics of Physical Activity  
+
+**Course:** Python–R–Git for Data Analysis  
+
+**Supervisor:**  
+Ludovic Marin — University of Montpellier  
+
+**Academic Year:** 2025–2026
 
 **GitHub repository (public):**  
 [https://github.com/preclouxmatys/SYNCOGESTM2](https://github.com/preclouxmatys/SYNCOGESTM2)
 
-# 1 Research question
+# Introduction
 
-Human movement analysis relies on both validated tools and reproducible pipelines.  
-The goal of this project is to test whether **postural configuration** influences global movement dynamics during dyadic interaction.
+Face-to-face communication is inherently multimodal, involving speech, gaze, gestures, and body movements that contribute to the coordination of social interaction. Bodily movements, particularly of the head and upper body, play an important role in regulating conversational dynamics such as turn-taking, feedback signals, and interactional engagement (e.g., Kendon, 2004; McNeill, 1992; Stivers et al., 2009).
 
-**Research question:**  
-Does posture (**SEATED**, **SEMI-STANDING**, **STANDING**) affect the movement quantity index of the participants?
+Quantifying these movements can provide insight into how individuals physically engage in interaction. One way to capture overall movement activity is through global movement indices, which summarize the cumulative displacement of body markers over time.
 
-**Hypothesis:**  
+In conversational contexts, postural configuration may influence the magnitude of these movements. Standing posture, for example, may allow greater motor freedom compared to seated interaction.
+
+The aim of this project is therefore to examine whether postural configuration influences global movement dynamics during dyadic interaction.
+
+## Research question
+Does posture (**SEATED**, **SEMI-STANDING**, **STANDING**) affect the Movement Quantity Index (MQI) of the participants?
+
+## Hypothesis  
 Standing posture is expected to increase the Movement Quantity Index. 
 
-# 2 Data
+# Data
 
-## 2.1 Source
-Data are Vicon "Trajectories" CSV exports containing 3D marker coordinates (X/Y/Z, in mm) sampled over time.
+## Source
+The data consist of Vicon “Trajectories” CSV exports containing three-dimensional marker coordinates (X, Y, Z in millimeters) sampled over time.
 
-## 2.2 Variables of interest
-Movement is summarized using a **Movement Quantity Index (MQI)** computed for:
-- **Wrists** (left + right)
-- **Head** (left + right temples)
+Each file corresponds to a dyadic interaction recording where two participants are simultaneously tracked.
 
-For each dyad file, both participants are available (P1 and P2).
+## Variables of interest
 
-# 3 Python processing pipeline
+Global movement dynamics are summarized using a Movement Quantity Index (MQI) computed from marker trajectories.
 
-This section summarizes the Python code organization and the processing steps.
+The MQI is calculated for two anatomical regions:
+- Wrists (left and right wrists combined)
+-	Head (left and right temples)
 
-## 3.1 Project organization (reproducibility)
+For each recording, both participants are available:
+-	P1 – Participant 1
+- P2 – Participant 2
+
+These indices provide an estimate of the **overall amount of movement produced during the interaction.**
+
+# Python processing pipeline
+
+This section summarizes the organization of the Python code and the main processing steps used to compute the movement indices.
+
+## Project organization (reproducibility)
 The repository follows a reproducible structure:
+
 - `src/` contains reusable functions (CSV parsing, marker extraction, MQI computation).
+
 - `notebooks/` contains step-by-step processing notebooks.
+
 - `results/<MODE>/` stores outputs (test or raw mode).
 
 Two execution modes are used:
+
 - `MODE="test"`: small dataset tracked on GitHub to ensure reproducibility
+
 - `MODE="raw"`: full dataset (not committed)
 
-## 3.2 Vicon CSV parsing
-Vicon CSV exports include multi-line headers (marker names, axes, units).  
+Both modes run the exact **same processing pipeline**.
+
+## Vicon CSV parsing
+Vicon CSV exports include multi-line headers (marker names, axes).  
 A dedicated parser reconstructs flattened columns (e.g., `marker_X`, `marker_Y`, `marker_Z`) so that the rest of the pipeline is independent of header format.
 
-## 3.3 Movement Quantity Index (MQI)
+## Movement Quantity Index (MQI)
 For one 3D marker, MQI is computed as the cumulative frame-to-frame displacement:
 
 \[
@@ -72,7 +103,7 @@ Head index (temples):
 MQI_{head} = MQI_{right\_temple} + MQI_{left\_temple}
 \]
 
-## 3.4 Shoulder-width normalization
+## Shoulder-width normalization
 To obtain a unitless measure robust to inter-individual scale differences, MQI is normalized by median shoulder width:
 
 \[
@@ -86,13 +117,13 @@ This produces:
 The final file used for statistics is:  
 `results/<MODE>/vicon_MQI_wrists_head_normByShoulders.xlsx`
 
-# 4 R statistical analysis (to show results, and plot)
+# R statistical analysis (to show results, and plot)
 
-## 4.1 Results
+## Results
 
-### 4.1.1 Descriptive statistics
+### Descriptive statistics
 
-#### 4.1.1.1 WRIST
+####  WRIST
 
 | Posture   | N  | Mean   | SD     |
 |-----------|----|--------|--------|
@@ -100,13 +131,13 @@ The final file used for statistics is:
 | SEMI      | 24 | 74.935 | 49.897 |
 | STANDING  | 24 | 134.694| 79.868 |
 
-#### 4.1.1.2 Repeated-measures ANOVA (Greenhouse–Geisser)
+#### Repeated-measures ANOVA (Greenhouse–Geisser)
 
 | Effect  | df1, df2      | F     | p      | η²p  |
 |---------|---------------|-------|--------|------|
 | posture | 1.58, 36.40   | 33.41 | < .001 | .592 |
 
-#### 4.1.1.3 Post-hoc comparisons (Bonferroni)
+#### Post-hoc comparisons (Bonferroni)
 
 | Contrast            | Estimate | t      | p_adj  |
 |--------------------|----------|--------|--------|
@@ -114,7 +145,7 @@ The final file used for statistics is:
 | SEATED – STANDING  | -56.00   | -6.67  | < .0001|
 | SEMI – STANDING    | -59.76   | -6.13  | < .0001|
 
-#### 4.2.1.1 HEAD
+#### HEAD
 
 | Posture   | N  | Mean  | SD     |
 |-----------|----|-------|--------|
@@ -122,13 +153,13 @@ The final file used for statistics is:
 | SEMI      | 24 | 52.455| 19.839 |
 | STANDING  | 24 | 61.054| 23.806 |
 
-#### 4.2.1.2 Repeated-measures ANOVA (Greenhouse–Geisser)
+#### Repeated-measures ANOVA (Greenhouse–Geisser)
 
 | Effect  | df1, df2      | F    | p     | η²p  |
 |---------|---------------|------|-------|------|
 | posture | 1.79, 41.28   | 5.69 | .008  | .198 |
 
-#### 4.2.1.3 Post-hoc comparisons (Bonferroni)
+#### Post-hoc comparisons (Bonferroni)
 
 | Contrast            | Estimate | t      | p_adj |
 |--------------------|----------|--------|-------|
@@ -136,9 +167,10 @@ The final file used for statistics is:
 | SEATED – STANDING  | -4.4     | -2.12  | .135  |
 | SEMI – STANDING    | -8.6     | -3.11  | .015  |
 
-# 4.2 boxplot
+# boxplot
 
 The following boxplots illustrate the distribution of the normalized movement quantity index across postural conditions for wrists and head.
+
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(readxl)
 library(dplyr)
@@ -193,4 +225,38 @@ ggplot(df_long, aes(x = posture, y = value)) +
        x = "Posture",
        y = "MQI / shoulder width (a.u.)")
 ```
+
+# Discussion 
+
+This analysis aimed to examine whether postural configuration influences global movement dynamics during dyadic interaction, using motion capture data and a reproducible workflow combining Python and R.
+
+The results show that posture significantly influenced the Movement Quantity Index (MQI), especially for wrist movements. The standing condition showed clearly higher normalized MQI values than both the seated and semi-standing conditions. This suggests that standing posture provides greater motor freedom and allows participants to move their upper body more during the interaction. From a biomechanical perspective, it is well established that posture influences coordination between body segments and the organization of movement (Massion, 1992; Massion et al., 2004). In conversational contexts, this greater motor freedom may lead to a larger range of gestures and spontaneous body movements.
+
+In contrast, although posture also had a statistically significant effect on head movements, the magnitude of this effect was smaller. Post-hoc comparisons mainly showed a difference between the semi-standing and standing conditions. This weaker effect may be explained by the specific functional role of head movements in conversation. Previous studies have shown that head movements are closely linked to communicative functions such as feedback signals, turn-taking regulation, and conversational alignment (e.g., Ishi et al., 2014; McDonald et al., 2015). Because these movements are strongly constrained by interactional dynamics, they may remain relatively stable across different postures compared to limb movements.
+
+More broadly, these findings are consistent with previous research showing that bodily movements contribute to the multimodal organization of conversation. Gestures and visible bodily actions play an important role in communication by structuring speech production, supporting meaning, and regulating interaction (see Kendon, 2004; McNeill, 1992). Changes in posture may therefore influence not only biomechanical constraints but also how participants physically engage in the communicative activity.
+
+From a methodological perspective, this project also illustrates the value of combining Python-based data processing with R-based statistical analysis within a reproducible research workflow. The Python pipeline transforms raw motion capture trajectories from the Vicon system into interpretable movement indices, while the statistical analysis in R allows the quantification and visualization of posture effects. In addition, normalization by shoulder width provides a unitless measure that reduces the influence of differences in body size between participants.
+
+In the public repository, the analyses are executed using a small test dataset to ensure full reproducibility of the pipeline. However, the same workflow can be applied without modification to the complete raw dataset, which was used to produce the results presented in this report but is not distributed in the repository due to file size constraints.
+
+Overall, these results suggest that posture influences the magnitude of bodily movement during dyadic interaction, particularly for upper-limb movements. These findings highlight the role of both biomechanical constraints and communicative processes in shaping the dynamics of human interaction.
+
+# Conclusion 
+
+This project investigated whether postural configuration influences global movement dynamics during dyadic interaction.
+
+Using Vicon motion-capture data, a Movement Quantity Index (MQI) was computed in Python, normalized by shoulder width, and statistically analyzed in R. The results showed that posture significantly influenced normalized movement values, with the strongest effect observed for wrist movements and higher MQI values in the standing condition.
+
+Beyond the empirical findings, the project demonstrates the feasibility of building a reproducible analysis pipeline that integrates motion-capture preprocessing, movement metric extraction, statistical analysis, and visualization. Such workflows facilitate transparent and replicable analyses of complex behavioral data.
+
+Future work could extend this approach by analyzing additional body segments, incorporating temporal coordination measures, or examining how movement dynamics relate to conversational roles and interactional structure.
+
+# Reference 
+
+- Ishi, C. T., Ishiguro, H., & Hagita, N. (2014). Analysis of relationship between head motion events and speech in dialogue conversations. Speech Communication, 57, 233‑243. https://doi.org/10.1016/j.specom.2013.06.008
+- Kendon, A. (2010). Gesture : Visible action as utterance (4. printing). Cambridge University Press.
+- Massion, J. (1992). Movement, posture and equilibrium : Interaction and coordination. Progress in Neurobiology, 38(1), 35‑56. https://doi.org/10.1016/0301-0082(92)90034-C
+- Massion, J., Alexandrov, A., & Frolov, A. (2004). Why and how are posture and movement coordinated? In Progress in Brain Research (Vol. 143, p. 13‑27). Elsevier. https://doi.org/10.1016/S0079-6123(03)43002-1
+- McDonald, D. Q., Zampella, C. J., Sariyanidi, E., Manakiwala, A., DeJardin, E., Herrington, J. D., Schultz, R. T., & Tunc, B. (2022). Head Movement Patterns during Face-to-Face Conversations Vary with Age. INTERNATIONAL CONFERENCE ON MULTIMODAL INTERACTION, 185‑195. https://doi.org/10.1145/3536220.3563366
 
