@@ -50,15 +50,21 @@ SYNCOGESTM2/
 
 ### Entry point
 
-Run: `main.ipynb` to execute the full pipeline on the test dataset.
+Run `main.ipynb` to execute the full pipeline on the test dataset.
 
-MODE = "test"   # or "raw" change it in `main.ipynb` and in the three notebook of the workflow : 
+```python
+MODE = "test"   # or "raw"
+```
+This mode must be set consistently in `main.ipynb` and in the three processing notebooks:
 
+Notebook/
 ├── MQI_VICON_defense.ipynb
 ├── Shouldersize_VICON_defense.ipynb
 └── Norm_final_Vicon_defense.ipynb
 
-Outputs are written to: results/<MODE>/
+The workflow generates outputs in:
+
+results/<MODE>
 
 The Python workflow computes:
 
@@ -66,6 +72,8 @@ The Python workflow computes:
 2. **Shoulder width** (median distance between left and right shoulders) : `Shouldersize_VICON_defense.ipynb`
 3. **Normalized MQI** : `Norm_final_Vicon_defense.ipynb`
 
+The test mode ensures reproducibility from the public repository.
+The raw mode uses the same pipeline and produces the same type of outputs, but requires access to the full raw dataset, which is stored locally and not shared in the repository.
 
 ## 4. R Statistical Analysis
 
@@ -78,6 +86,7 @@ The R workflow performs:
 Entry point
 
 Open in RStudio: `main.Rmd` and run the full notebook to perform the analysis on the test results.
+
 Set: MODE = "test"   # or "raw"
 
 results/<MODE>/vicon_MQI_wrists_head_normByShoulders.xlsx is the input for the R analysis.
