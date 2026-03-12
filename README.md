@@ -25,6 +25,7 @@ The aim is to demonstrate both:
 ---
 
 ## 2. Project Structure
+<pre>
 SYNCOGESTM2/
 ├── data/
 │   ├── test/              # small dataset for reproducibility
@@ -40,7 +41,7 @@ SYNCOGESTM2/
 ├── Precloux.matys.html    # final HTML report
 ├── README.md
 └── LICENSE
-
+</pre>
 ---
 
 ## 3. Python Pipeline
