@@ -64,7 +64,7 @@ Notebook/
 </pre>
 The workflow generates outputs in:
 
-results/<MODE>
+results//<MODE>
 
 The Python workflow computes:
 
@@ -78,18 +78,22 @@ The raw mode uses the same pipeline and produces the same type of outputs, but r
 ## 4. R Statistical Analysis
 
 The R workflow performs:
-	•	Repeated-measures ANOVA
-	•	Greenhouse–Geisser correction
-	•	Bonferroni post-hoc comparisons
-	•	Effect size (partial eta squared)
 
-Entry point
+- Repeated-measures **ANOVA**
+- **Greenhouse–Geisser correction**
+- **Bonferroni post-hoc comparisons**
+- **Effect size** (partial eta squared)
 
-Open in RStudio: `main.Rmd` and run the full notebook to perform the analysis on the test results.
+### Entry point
 
-Set: MODE = "test"   # or "raw"
+Open `main.Rmd` in **RStudio** and run the full notebook to perform the statistical analysis.
 
-results/<MODE>/vicon_MQI_wrists_head_normByShoulders.xlsx is the input for the R analysis.
+Set the execution mode:
+
+```r
+MODE <- "test"   # or "raw" # same idea as in Python
+```
+The input file for the analysis is: results/<MODE>/`vicon_MQI_wrists_head_normByShoulders.xlsx`
 
 ## 5. Scientific Question
 
