@@ -1,13 +1,12 @@
 # SYNCOGESTM2
 Python–R–Git project for the Master 2 defense
 
-**Python–R–Git Project ** 
-Matys Précloux — Master IEAP — 2026  
+**Matys Précloux — Master IEAP — 2026**
 
 ## 1. Project Overview
 
 This project investigates the effect of **postural configuration**  
-(SEATED vs SEMI-STANDING vs STANDING) on global body movement dynamics during dyadic interaction.
+(**SEATED** vs **SEMI-STANDING** vs **STANDING**) on global body movement dynamics during dyadic interaction.
 
 Movement is quantified using:
 
@@ -30,7 +29,10 @@ SYNCOGESTM2/
 ├── data/
 │   ├── test/              # small dataset for reproducibility
 │   └── raw/               # full dataset (local only)
-├── notebooks/             # Python processing notebooks
+├── notebooks/            # Python processing notebooks
+│   ├── MQI_VICON_defense.ipynb
+│   ├── Shouldersize_VICON_defense.ipynb
+│   └── Norm_final_Vicon_defense.ipynb
 ├── results/
 │   ├── test/              # generated test outputs
 │   └── raw/               # generated full outputs
@@ -48,9 +50,13 @@ SYNCOGESTM2/
 
 The Python workflow computes:
 
-1. Movement Quantity Index (MQI) for wrists and head
-2. Shoulder width (median distance between left and right shoulders)
-3. Normalized MQI (MQI / shoulder width)
+1. **Movement Quantity Index (MQI)** for wrists and head
+2. **Shoulder width** (median distance between left and right shoulders)
+3. **Normalized MQI**
+
+\[
+MQI_{norm} = \frac{MQI_{mm}}{shoulder\ width_{median}}
+\]
 
 ### Entry point
 
