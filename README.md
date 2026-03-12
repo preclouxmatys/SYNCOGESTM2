@@ -1,7 +1,28 @@
-# SYNCOGESTM2
-Python–R–Git project for the Master 2 defense
+# Python–R–Git Project  
+## Postural Configuration Shapes Movement Dynamics During Dyadic Interaction
 
-**Matys Précloux — Master IEAP — 2026**
+**Faculty of Sports and Health Sciences (UFR STAPS)**  
+**Master of Science (MSc)**  
+Engineering and Ergonomics of Physical Activity  
+
+### Author
+Matys Précloux  
+
+### Supervisors
+Ludovic Marin — Professor, University of Montpellier  
+Ghiles Mostafaoui — Research Engineer, University of Montpellier  
+Patrice Guyot — Research Engineer, University of Montpellier  
+Simon Pla — PhD Candidate, University of Montpellier  
+
+### Course
+Python–R–Git for Data Analysis
+
+### Academic Year
+2025–2026  
+
+**Date of Defense:** March 2026  
+
+**GitHub repository:**  [https://github.com/preclouxmatys/SYNCOGESTM2]
 
 ## 1. Project Overview
 
@@ -46,9 +67,11 @@ SYNCOGESTM2/
 </pre>
 ---
 
-## 3. Python Pipeline
+## 3. Reproductibility
 
-### Entry point
+### 3.1 Python Pipeline
+
+#### Entry point
 
 Run `main.ipynb` to execute the full pipeline on the test dataset.
 
@@ -75,7 +98,7 @@ The Python workflow computes:
 The test mode ensures reproducibility from the public repository.
 The raw mode uses the same pipeline and produces the same type of outputs, but requires access to the full raw dataset, which is stored locally and not shared in the repository.
 
-## 4. R Statistical Analysis
+### 3.2. R Statistical Analysis
 
 The R workflow performs:
 
@@ -84,7 +107,7 @@ The R workflow performs:
 - **Bonferroni post-hoc comparisons**
 - **Effect size** (partial eta squared)
 
-### Entry point
+#### Entry point
 
 Open `main.Rmd` in **RStudio** and run the full notebook to perform the statistical analysis.
 
@@ -103,32 +126,27 @@ Does postural configuration influence global body movement dynamics?
 
 Standing posture is expected to increase the movement quantity index. 
 
-## 6. Reproducibility
-	•	All file paths are OS-independent (Path / here)
-	•	No hard-coded absolute paths
-	•	Full pipeline can be executed from main.ipynb and main.Rmd
-	•	Results are automatically regenerated
 
-## 7. Required Libraries
+## 6. Required Libraries
+<pre>
+├── Python
+│   ├──pandas
+│   ├──numpy
+│   ├──pathlib
+│   ├──jupyter
 
-Python
-	•	pandas
-	•	numpy
-	•	pathlib
-	•	jupyter
-
-R
-	•	dplyr
-	•	tidyr
-	•	readxl
-	•	ggplot2
-	•	afex
-	•	emmeans
-	•	lme4
-	•	lmerTest
-	•	here
-	•	stringr
-
+├── R
+│   ├── dplyr
+│   ├──tidyr
+│   ├──readxl
+│   ├──ggplot2
+│   ├──afex
+│   ├──emmeans
+│   ├──lme4
+│   ├──lmerTest
+│   ├──here
+│   ├──stringr
+<pre/>
 ⸻
 
 8. Author
