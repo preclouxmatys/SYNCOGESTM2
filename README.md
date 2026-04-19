@@ -75,7 +75,8 @@ Run `main.ipynb` to execute the full pipeline on the test dataset.
 ```python
 MODE = "test"   # or "raw"
 ```
-This mode must be set consistently in `main.ipynb` and in the three processing notebooks:
+This mode must be set consistently in `main.ipynb`:
+
 <pre>
 Notebook/
 ├── MQI_VICON_defense.ipynb
