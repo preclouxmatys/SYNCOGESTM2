@@ -63,6 +63,11 @@ SYNCOGESTM2/
 
 ### 3.1 Python Pipeline
 
+## How to run the project
+
+1. Run `main.ipynb` to generate movement metrics (Python pipeline)
+2. Run `main.Rmd` to perform statistical analysis and visualization (R pipeline)
+
 #### Entry point
 
 Run `main.ipynb` to execute the full pipeline on the test dataset.
@@ -108,9 +113,9 @@ Set the execution mode:
 ```r
 MODE <- "test"   # or "raw" # same idea as in Python
 ```
-The input file for the analysis is: results//<MODE>/`vicon_MQI_wrists_head_normByShoulders.xlsx`
+The input file for the analysis is: results/<MODE>/`vicon_MQI_wrists_head_normByShoulders.xlsx`
 
-## 5. Scientific Question
+## 4. Scientific Question
 
 Does postural configuration influence global body movement dynamics?
 
@@ -119,7 +124,7 @@ Does postural configuration influence global body movement dynamics?
 Standing posture is expected to increase the movement quantity index. 
 
 
-## 6. Required Libraries
+## 5. Required Libraries
 <pre>
 ├── Python
 │   ├──pandas
