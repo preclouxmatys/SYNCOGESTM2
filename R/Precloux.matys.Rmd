@@ -120,6 +120,9 @@ The final file used for statistics is:
 # R statistical analysis (to show results, and plot)
 
 ## Results
+### Statistical assumptions
+
+Normality of residuals was visually inspected using QQ plots for each postural condition. The distributions appeared approximately normal, supporting the use of repeated-measures ANOVA.
 
 ### Descriptive statistics
 
@@ -226,6 +229,7 @@ ggplot(df_long, aes(x = posture, y = value)) +
        y = "MQI / shoulder width (a.u.)")
 ```
 
+
 # Discussion 
 
 This analysis aimed to examine whether postural configuration influences global movement dynamics during dyadic interaction, using motion capture data and a reproducible workflow combining Python and R.
@@ -259,4 +263,4 @@ Future work could extend this approach by analyzing additional body segments, in
 - Massion, J. (1992). Movement, posture and equilibrium : Interaction and coordination. Progress in Neurobiology, 38(1), 35‑56. https://doi.org/10.1016/0301-0082(92)90034-C
 - Massion, J., Alexandrov, A., & Frolov, A. (2004). Why and how are posture and movement coordinated? In Progress in Brain Research (Vol. 143, p. 13‑27). Elsevier. https://doi.org/10.1016/S0079-6123(03)43002-1
 - McDonald, D. Q., Zampella, C. J., Sariyanidi, E., Manakiwala, A., DeJardin, E., Herrington, J. D., Schultz, R. T., & Tunc, B. (2022). Head Movement Patterns during Face-to-Face Conversations Vary with Age. INTERNATIONAL CONFERENCE ON MULTIMODAL INTERACTION, 185‑195. https://doi.org/10.1145/3536220.3563366
-
+- McNeill, D. (1992). Hand and mind: What gestures reveal about thought. University of Chicago Press.
